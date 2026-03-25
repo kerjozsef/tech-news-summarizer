@@ -1,0 +1,47 @@
+services:
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: ntfy
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - TZ=America/Los_Angeles # Change to your timezone
+    volumes:
+      - /volume1/docker/ntfy/cache:/var/cache/ntfy
+      - /volume1/docker/ntfy/config:/etc/ntfy
+    command: serve
+
+  summarizer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: tech-news-summarizer
+    restart: unless-stopped
+    environment:
+      # Non-secret configuration (set real values or override via env)
+      TZ: America/Los_Angeles # Change to your timezone
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: 587
+      SMTP_USER: kerjozsef@gmail.com
+      EMAIL_TO: kerjozsef@gmail.com
+      EMAIL_FROM: kerjozsef@gmail.com
+      NTFY_BASE_URL: https://kerjozsef.synology.me:8443
+      NTFY_TOPIC: tech-news-digest
+      MAX_ARTICLES: 3
+      OPENAI_MODEL: gpt-4o-mini
+      INFISICAL_API_URL: https://kerjozsef.synology.me:1443
+      INFISICAL_UNIVERSAL_AUTH_CLIENT_ID: ${CLIENT_ID}
+      INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET: ${CLIENT_SECRET}
+      INF_PROJECT_ID: ${PROJECT_ID}
+      INF_ENV: synology
+    depends_on:
+      - ntfy
+    volumes:
+      - summarizer_log:/var/log
+
+volumes:
+  ntfy_cache:
+  ntfy_data:
+  summarizer_log:
+

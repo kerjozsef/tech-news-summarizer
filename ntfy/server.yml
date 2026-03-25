@@ -1,0 +1,18 @@
+web-root: disable
+base-url: "https://kerjozsef.synology.me:8443"
+listen-http: ":80"
+cache-file: "/var/cache/ntfy/cache.db"
+auth-file: "/var/cache/ntfy/user.db"
+auth-default-access: "deny-all"
+auth-users:
+  - "yoko:$2a$10$IbW3/Y9nekwi/xlP1LaTMeLwAUlY8j/0dZbI18PrFg2HWiIbArjdi:admin"
+  - "tech:$2a$10$wTnty87VEWzmbnCjmQsREelATQRZnuHQ07WZ2lfsIoZ25C6w.BA.W:user"
+auth-tokens:
+  - "tech:tk_4b904w2j0neim083fvs78rvhgmcbr:tech-news-summarizer"
+auth-access:
+  - "tech:tech-news-digest:rw"
+behind-proxy: true
+keepalive-interval: "45s"
+upstream-base-url: "https://ntfy.sh"
+visitor-subscription-limit: 1
+visitor-attachment-daily-bandwidth-limit: "100M"
