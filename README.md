@@ -8,9 +8,6 @@ Fetches recent **tech-only** news from RSS feeds, summarizes with AI, and sends 
 tech-news-summarizer/
 ├── README.md
 ├── requirements.txt
-├── .gitea/
-│   └── workflows/
-│       └── tech_news_summarizer.yaml   # Deploy: build compose with repo secrets
 ├── app/                                # Python application
 │   ├── main.py                         # Entry: fetch → summarize → send
 │   ├── config.py                       # Env vars + optional Docker /run/secrets
